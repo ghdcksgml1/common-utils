@@ -20,9 +20,6 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
 
-      - name: setup gradle
-        uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5
-
       - name: Publish package
         run: ./gradlew publish
         env:
