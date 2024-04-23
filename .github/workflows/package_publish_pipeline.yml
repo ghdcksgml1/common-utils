@@ -1,14 +1,16 @@
-name: Spring Boot & Gradle CI Jobs (With. main branches push)
+name: Publish Pipeline
 
 on:
-  push:
-    branches: [ main ]
+  release:
+    types: [ created ]
 
 jobs:
   build:
     # 실행 환경 (Git Runners 개인 서버)
     runs-on: self-hosted
-
+    permissions:
+      contents: read
+      packages: write
     steps:
       # JDK 17 세팅
       - uses: actions/checkout@v3
@@ -26,7 +28,7 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: Package
+          name: common-utils
           path: build/libs/*.jar
 
       - name: Publish package
