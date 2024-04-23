@@ -5,7 +5,7 @@ on:
     types: [ created ]
 
 jobs:
-  build:
+  publish:
     # 실행 환경 (Git Runners 개인 서버)
     runs-on: self-hosted
     permissions:
@@ -20,18 +20,8 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
 
-      # 빌드
-      - name: Build with Gradle
-        run: ./gradlew build
-
-      # artifacts 업로드
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: common-utils
-          path: build/libs/*.jar
-
       - name: Publish package
         run: ./gradlew publish
         env:
+          GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
